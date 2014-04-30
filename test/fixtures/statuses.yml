@@ -2,7 +2,7 @@
 
 one:
   content: MyText
-  user: joy
+  user: jim
 two:
   content: MyText
   user: joy

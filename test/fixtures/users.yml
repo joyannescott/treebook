@@ -4,3 +4,10 @@ joy:
    profile_name: "dummy"
    email: "dummy@gmail.com"
    encrypted_password: "password"
+
+jim:
+   first_name: "dummy2"
+   last_name: "dummy2"
+   profile_name: "dummy2"
+   email: "dummy2@gmail.com"
+   encrypted_password: "password"

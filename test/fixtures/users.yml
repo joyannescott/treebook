@@ -11,3 +11,10 @@ jim:
    profile_name: "dummy2"
    email: "dummy2@gmail.com"
    encrypted_password: "password"
+
+joyscott:
+   first_name: "Joy"
+   last_name: "Scott"
+   profile_name: "joyscott"
+   email: "joyfitz@mac.com"
+   encrypted_password: "asdfjkl;"

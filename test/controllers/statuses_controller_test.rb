@@ -2,7 +2,7 @@ require 'test_helper'
 
 class StatusesControllerTest < ActionController::TestCase
   setup do
-    @status = statuses(:one)
+    @status = statuses(:two)
   end
 
   test "should get index" do
@@ -38,6 +38,24 @@ class StatusesControllerTest < ActionController::TestCase
     assert_redirected_to status_path(assigns(:status))
   end
 
+  test "should create status for current user when logged in" do
+    sign_in users(:joy)
+    assert_difference('Status.count') do
+      post :create, status: { content: @status.content, user_id: users(:jim).id }
+    end
+    assert_redirected_to status_path(assigns(:status))
+    assert_equal assigns(:status).user_id, users(:joy).id
+  end
+
+  test "should update status when logged" do
+    sign_in users(:joy)
+    assert_difference('Status.count') do
+      post :create, status: { content: @status.content }
+    end
+    assert_redirected_to status_path(assigns(:status))
+  end
+
+
   test "should show status" do
     get :show, id: @status
     assert_response :success
@@ -58,8 +76,22 @@ class StatusesControllerTest < ActionController::TestCase
 
   test "should update status when logged in" do
     sign_in users(:joy)
-    patch :update, id: @status, status: { content: @status.content }
+    put :update, id: @status, status: { content: @status.content }
     assert_redirected_to status_path(assigns(:status))
+  end
+
+  test "should update status for current user when logged in" do
+    sign_in users(:joy)
+    post :update, id: @status, status: { content: @status.content, user_id: users(:jim).id }
+    assert_redirected_to status_path(assigns(:status))
+    assert_equal assigns(:status).user_id, users(:joy).id
+  end
+
+  test "should no update status if no status is sent in " do
+    sign_in users(:joy)
+    post :update, id: @status
+    assert_redirected_to status_path(assigns(:status))
+    assert_equal assigns(:status).user_id, users(:joy).id
   end
 
   test "should destroy status" do
